@@ -218,15 +218,15 @@
                         <span class="contact__text">New Delhi, INDIA</span>
                     </div>
 
-                    <form action="https://sheetdb.io/api/v1/xmqkg0ydfum87" class="contact__form" method="post">
+                     <form id="sheetdb-form" action="https://sheetdb.io/api/v1/xmqkg0ydfum87" class="contact__form" method="post">
                         <div class="contact__inputs">
-                            <input type="text" placeholder="Name" class="contact__input" name="data[Name]">
-                            <input type="email" placeholder="Email" class="contact__input" name="data[Email]">
+                            <input required type="text" placeholder="Name" class="contact__input" name="data[Name]" id="CName">
+                            <input required type="email" placeholder="Email" class="contact__input" name="data[Email]" id="CEmail">
                         </div>
 
-                        <textarea  id="" placeholder="Message" cols="0" rows="10" class="contact__input" name="data[Message]"></textarea>
+                        <textarea  required id="CMessage" placeholder="Message" cols="0" rows="10" class="contact__input" name="data[Message]" ></textarea>
 
-                        <input type="submit" value="Connect with Me" class="contact__button">
+                        <input type="submit" value="Connect with Me" class="contact__button" id="sbtn">
                     </form>
                 </div>
             </section>
@@ -268,5 +268,36 @@
 
         <!--===== MAIN JS =====-->
         <script src="assets/js/main.js"></script>
+       
+        <!--===== After contacting =====-->
+        <script>
+				  var form = document.getElementById('sheetdb-form');
+				  form.addEventListener("submit", e => {
+					e.preventDefault();
+					fetch(form.action, {
+						method : "POST",
+						body: new FormData(document.getElementById("sheetdb-form")),
+					}).then(
+						response => response.json()
+					).then((html) => {
+					  // you can put any JS code here
+					  //alert('You cant see but i am smilling😊.Thank you '+document.getElementById('CName').value)
+					  //window.location.href = '';
+                       // location.reload();
+						document.getElementById('sbtn').style.backgroundColor='Red';  
+                    setTimeout("ChangeColor2()",2000);  
+					
+					document.getElementById("msg").innerHTML = "You can't see, But i am smiling😊.Thank you so much !!";
+						
+						document.getElementById("conName").innerHTML =document.getElementById('CName').value;
+						
+						document.getElementById("CName").value = "";
+						document.getElementById("CEmail").value = "";
+						document.getElementById("CMessage").value = "";
+						
+					});
+				  });
+       </script>
+        
     </body>
 </html>
